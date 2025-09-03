@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Coffee Journey</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+   
+    .follow-btn, .message-btn {
+      cursor: pointer;
+      padding: 10px 18px;
+      margin: 6px 6px 0 0;
+      border: none;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .follow-btn {
+      background: #6f4e37;
+      color: white;
+    }
+    .follow-btn:hover {
+      background: #8b5a2b;
+    }
+    .message-btn {
+      background: #cdaa7d;
+      color: #fff;
+    }
+    .message-btn:hover {
+      background: #a47551;
+    }
+
+   
+    .custom-alert {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fffaf4;
+      color: #3b2b1a;
+      padding: 18px 24px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      font-size: 15px;
+      z-index: 2000;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
+    .custom-alert button {
+      margin: 10px 6px 0;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 8px;
+      background: #6f4e37;
+      color: #fff;
+      cursor: pointer;
+    }
+    .custom-alert button:hover {
+      background: #8b5a2b;
+    }
+
+   
+    .chat-modal {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      background: #fffaf4;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 1500;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideUp 0.4s ease;
+    }
+    .chat-header {
+      background: linear-gradient(135deg, #6f4e37, #a47551);
+      color: white;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-header h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+    .chat-header span {
+      cursor: pointer;
+      font-size: 20px;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      max-height: 250px;
+    }
+    .chat-messages p {
+      margin: 6px 0;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+    .chat-messages .bot {
+      background: #f3e5d0;
+      text-align: left;
+    }
+    .chat-messages .user {
+      background: #cdaa7d;
+      color: white;
+      text-align: right;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #eee;
+    }
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      outline: none;
+    }
+    .chat-input button {
+      background: #6f4e37;
+      color: white;
+      border: none;
+      padding: 0 14px;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background: #8b5a2b;
+    }
+
+    
+    .sections {
+      margin: 20px;
+    }
+    .card {
+      background: #fffaf4;
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .gallery-section {
+      margin: 20px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    .gallery-item img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-image">
+        <img src="./images/me.jpg" alt="My Picture">
+      </div>
+      <div class="profile-info">
+        <h1>Althea Jhane Romena ☕</h1>
+        <p class="tagline">Coffee Enthusiast • Dreamer • Risk Taker</p>
+        <button id="followBtn" class="follow-btn">Follow</button>
+        <button id="messageBtn" class="message-btn">Message</button>
+      </div>
+      <div class="profile-stats">
+        <div><h2>2,985</h2><p>Followers</p></div>
+        <div><h2>132</h2><p>Following</p></div>
+        <div><h2>8</h2><p>Posts</p></div>
+      </div>
+    </div>
+
+    <div class="sections">
+      <div class="card">
+        <h2>☕ My Love for Coffee</h2>
+        <p>
+          Coffee is my comfort zone. From the warmth of a hot latte on rainy days to the refreshment of an iced brew in summer,
+          coffee isn’t just a drink—it’s a ritual. It gives me calm, focus, and creativity, making every cup a story worth sharing.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>🌱 Challenges in Life</h2>
+        <p>
+          Life has its own blend of bitterness and sweetness, just like coffee.  
+          The struggles I’ve faced taught me resilience, patience, and strength.  
+          Challenges aren’t meant to stop us—they’re meant to shape us into something stronger and more meaningful.
+        </p>
+      </div>
+    </div>
+
+    <div class="gallery-section">
+      <h2>📸 Coffee Moments</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="./images/coffee1.jpg" alt="Coffee Cup"></div>
+        <div class="gallery-item"><img src="./images/coffee2.jpg" alt="Favorite"></div>
+        <div class="gallery-item"><img src="./images/coffee3.jpg" alt="Coffee Beans"></div>
+        <div class="gallery-item"><img src="./images/coffee4.jpg" alt="Iced Coffee"></div>
+        <div class="gallery-item"><img src="./images/coffee5.jpg" alt="Coffee"></div>
+        <div class="gallery-item"><img src="./images/coffee6.jpg" alt="Espresso Shot"></div>
+        <div class="gallery-item"><img src="./images/coffee7.jpg" alt="Latte Art"></div>
+        <div class="gallery-item"><img src="./images/coffee8.jpg" alt="Coffee with Friends"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="customAlert" class="custom-alert">
+    <p id="alertMessage"></p>
+    <div id="alertButtons"></div>
+  </div>
+
+  
+  <div class="chat-modal" id="chatModal">
+    <div class="chat-header">
+      <h3>☕ Chat with Althea</h3>
+      <span onclick="closeChat()">&times;</span>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <p class="bot">Hello! 👋 Let's chat.</p>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userMessage" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const followBtn = document.getElementById('followBtn');
+    const messageBtn = document.getElementById('messageBtn');
+    const customAlert = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+    const alertButtons = document.getElementById('alertButtons');
+
+    let isFollowing = false;
+
+    function showAlert(message, buttons = []) {
+      alertMessage.textContent = message;
+      alertButtons.innerHTML = "";
+      buttons.forEach(btn => alertButtons.appendChild(btn));
+      customAlert.style.display = "block";
+    }
+    function closeAlert() {
+      customAlert.style.display = "none";
+    }
+
+    followBtn.addEventListener('click', () => {
+      if (!isFollowing) {
+        
+        isFollowing = true;
+        followBtn.textContent = "Following ✔";
+        const okBtn = document.createElement("button");
+        okBtn.textContent = "OK";
+        okBtn.onclick = closeAlert;
+        showAlert("WELCOME", [okBtn]);
+      } else {
+       
+        const yesBtn = document.createElement("button");
+        yesBtn.textContent = "Yes";
+        yesBtn.onclick = () => {
+          isFollowing = false;
+          followBtn.textContent = "Follow";
+          closeAlert();
+        };
+        const noBtn = document.createElement("button");
+        noBtn.textContent = "No";
+        noBtn.onclick = closeAlert;
+        showAlert("Are you sure you want to unfollow Althea?", [yesBtn, noBtn]);
+      }
+    });
+
+    messageBtn.addEventListener('click', () => {
+      document.getElementById('chatModal').style.display = "flex";
+    });
+
+    function closeChat() {
+      document.getElementById('chatModal').style.display = "none";
+    }
+    function sendMessage() {
+      const input = document.getElementById('userMessage');
+      const msg = input.value.trim();
+      if (msg !== "") {
+        const chatBox = document.getElementById('chatMessages');
+        const userMsg = document.createElement("p");
+        userMsg.className = "user";
+        userMsg.textContent = msg;
+        chatBox.appendChild(userMsg);
+
+        setTimeout(() => {
+          const botMsg = document.createElement("p");
+          botMsg.className = "bot";
+          botMsg.textContent = "Got it! ☕ Thanks for interacting.";
+          chatBox.appendChild(botMsg);
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, 800);
+
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+  </script>
+</body>
+</html>
